@@ -8,7 +8,12 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirement.txt
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    libgl1-mesa-glx \
+    && pip install --no-cache-dir -r requirement.txt
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
